@@ -17,6 +17,7 @@ public class formInicio extends javax.swing.JFrame {
         initComponents();
     }
     //Esto es un comentario.
+    //Probando segundo día de comentarios..
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -29,6 +30,8 @@ public class formInicio extends javax.swing.JFrame {
 
         jMenuItem1 = new javax.swing.JMenuItem();
         panelLh = new javax.swing.JPanel();
+        btnProductos = new javax.swing.JButton();
+        BtnMovimientos = new javax.swing.JButton();
         LblWelcome = new javax.swing.JLabel();
         barraMenu = new javax.swing.JMenuBar();
         itemIngresar = new javax.swing.JMenu();
@@ -46,15 +49,34 @@ public class formInicio extends javax.swing.JFrame {
         panelLh.setBackground(new java.awt.Color(50, 137, 168));
         panelLh.setForeground(new java.awt.Color(0, 204, 204));
 
+        btnProductos.setText("Productos");
+        btnProductos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnProductosActionPerformed(evt);
+            }
+        });
+
+        BtnMovimientos.setText("Movimientos");
+
         javax.swing.GroupLayout panelLhLayout = new javax.swing.GroupLayout(panelLh);
         panelLh.setLayout(panelLhLayout);
         panelLhLayout.setHorizontalGroup(
             panelLhLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 313, Short.MAX_VALUE)
+            .addGroup(panelLhLayout.createSequentialGroup()
+                .addGap(27, 27, 27)
+                .addGroup(panelLhLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnProductos, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(BtnMovimientos, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(241, Short.MAX_VALUE))
         );
         panelLhLayout.setVerticalGroup(
             panelLhLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 578, Short.MAX_VALUE)
+            .addGroup(panelLhLayout.createSequentialGroup()
+                .addGap(30, 30, 30)
+                .addComponent(btnProductos, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(96, 96, 96)
+                .addComponent(BtnMovimientos, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         LblWelcome.setFont(new java.awt.Font("MS Reference Sans Serif", 0, 60)); // NOI18N
@@ -96,18 +118,22 @@ public class formInicio extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
                 .addComponent(panelLh, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(242, 242, 242)
+                .addGap(128, 128, 128)
                 .addComponent(LblWelcome)
-                .addContainerGap(254, Short.MAX_VALUE))
+                .addContainerGap(221, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(panelLh, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
                 .addGap(35, 35, 35)
                 .addComponent(LblWelcome)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(381, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(panelLh, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         pack();
@@ -116,6 +142,12 @@ public class formInicio extends javax.swing.JFrame {
     private void itemIngresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemIngresarActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_itemIngresarActionPerformed
+
+    private void btnProductosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProductosActionPerformed
+        // TODO add your handling code here:
+        formProductos abrir = new formProductos();
+        abrir.setVisible(true);
+    }//GEN-LAST:event_btnProductosActionPerformed
 
     /**
      * @param args the command line arguments
@@ -153,10 +185,12 @@ public class formInicio extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton BtnMovimientos;
     private javax.swing.JLabel LblWelcome;
     private javax.swing.JMenu RolesMen;
     private javax.swing.JMenu UsuariosMen;
     private javax.swing.JMenuBar barraMenu;
+    private javax.swing.JButton btnProductos;
     private javax.swing.JMenuItem itemCerrar;
     private javax.swing.JMenuItem itemCrearRol;
     private javax.swing.JMenu itemIngresar;
