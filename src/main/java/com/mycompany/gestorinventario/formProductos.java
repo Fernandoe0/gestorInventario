@@ -11,12 +11,14 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
+import java.io.PrintWriter;
 import java.io.IOException;
 import java.nio.file.Files;
 import static java.nio.file.StandardCopyOption.REPLACE_EXISTING;
 import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 /**
  *
  * @author BICHO
@@ -35,6 +37,7 @@ public class formProductos extends javax.swing.JFrame {
     String descripcion ="";
     String marca = "";
     String unidad = "";
+    String pleca = "";
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -60,6 +63,9 @@ public class formProductos extends javax.swing.JFrame {
         btnCrear = new javax.swing.JButton();
         btnModificar = new javax.swing.JButton();
         btnEliminar = new javax.swing.JButton();
+        txtPleca = new javax.swing.JTextField();
+        jButton1 = new javax.swing.JButton();
+        btnBuscar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("formProductos");
@@ -97,12 +103,46 @@ public class formProductos extends javax.swing.JFrame {
         btnEliminar.setBackground(new java.awt.Color(0, 153, 153));
         btnEliminar.setText("ELIMINAR");
 
+        txtPleca.setEditable(false);
+        txtPleca.setBackground(new java.awt.Color(0, 102, 153));
+        txtPleca.setForeground(new java.awt.Color(0, 102, 153));
+        txtPleca.setText("|");
+        txtPleca.setBorder(null);
+        txtPleca.setCaretColor(new java.awt.Color(0, 102, 153));
+        txtPleca.setEnabled(false);
+        txtPleca.setFocusable(false);
+
+        jButton1.setBackground(new java.awt.Color(0, 153, 153));
+        jButton1.setText("SALIR");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
+        btnBuscar.setBackground(new java.awt.Color(0, 153, 153));
+        btnBuscar.setText("BUSCAR");
+
         javax.swing.GroupLayout pnlProductosLayout = new javax.swing.GroupLayout(pnlProductos);
         pnlProductos.setLayout(pnlProductosLayout);
         pnlProductosLayout.setHorizontalGroup(
             pnlProductosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlProductosLayout.createSequentialGroup()
                 .addGroup(pnlProductosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pnlProductosLayout.createSequentialGroup()
+                        .addGap(69, 69, 69)
+                        .addComponent(lblProductos, javax.swing.GroupLayout.PREFERRED_SIZE, 252, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnBuscar))
+                    .addGroup(pnlProductosLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(btnCrear, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnModificar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(pnlProductosLayout.createSequentialGroup()
                         .addContainerGap()
                         .addGroup(pnlProductosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -120,29 +160,27 @@ public class formProductos extends javax.swing.JFrame {
                             .addComponent(txtNombre)
                             .addComponent(txtDescripcion)
                             .addComponent(txtMarca, javax.swing.GroupLayout.PREFERRED_SIZE, 292, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtId, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtUnidad, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(pnlProductosLayout.createSequentialGroup()
-                        .addGap(69, 69, 69)
-                        .addComponent(lblProductos, javax.swing.GroupLayout.PREFERRED_SIZE, 252, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(pnlProductosLayout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(btnCrear, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnModificar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(36, Short.MAX_VALUE))
+                            .addGroup(pnlProductosLayout.createSequentialGroup()
+                                .addComponent(txtId, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtPleca, javax.swing.GroupLayout.PREFERRED_SIZE, 0, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(txtUnidad, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(62, Short.MAX_VALUE))
         );
         pnlProductosLayout.setVerticalGroup(
             pnlProductosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlProductosLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(lblProductos, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addGroup(pnlProductosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblProductos, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(pnlProductosLayout.createSequentialGroup()
+                        .addGap(14, 14, 14)
+                        .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(pnlProductosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblID, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(lblID, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(txtPleca, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(pnlProductosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -161,9 +199,10 @@ public class formProductos extends javax.swing.JFrame {
                     .addComponent(lblUnidad))
                 .addGap(18, 18, 18)
                 .addGroup(pnlProductosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnCrear, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnEliminar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnModificar, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnModificar, javax.swing.GroupLayout.DEFAULT_SIZE, 48, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
@@ -188,24 +227,36 @@ public class formProductos extends javax.swing.JFrame {
     private void btnCrearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCrearActionPerformed
         // TODO add your handling code here:
         try {
-                        FileWriter fw = new FileWriter(f);
+                        FileWriter fw = new FileWriter(f, true);
                         BufferedWriter bw = new BufferedWriter(fw);
                         sku = txtId.getText();
                         nombre = txtNombre.getText();
                         descripcion = txtDescripcion.getText();
                         marca = txtMarca.getText();
                         unidad = txtUnidad.getText();
+                        pleca =txtPleca.getText();
                         bw.write(sku);
+                        bw.write(pleca);
                         bw.write(nombre);
+                        bw.write(pleca);
                         bw.write(descripcion);
+                        bw.write(pleca);
                         bw.write(marca);
+                        bw.write(pleca);
                         bw.write(unidad);
+                        bw.write("\n");
                         bw.close();
-                        sku = "";
+                        JOptionPane.showMessageDialog(null, "INGRESO EXITOSO");
                     } catch (IOException ex) {
                         Logger.getLogger(formProductos.class.getName()).log(Level.SEVERE, null, ex);
                     }
+        
     }//GEN-LAST:event_btnCrearActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        dispose();  
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -243,9 +294,11 @@ public class formProductos extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnBuscar;
     private javax.swing.JButton btnCrear;
     private javax.swing.JButton btnEliminar;
     private javax.swing.JButton btnModificar;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPopupMenu jPopupMenu1;
     private javax.swing.JLabel lblDescripcion;
@@ -258,6 +311,7 @@ public class formProductos extends javax.swing.JFrame {
     private javax.swing.JTextField txtId;
     private javax.swing.JTextField txtMarca;
     private javax.swing.JTextField txtNombre;
+    private javax.swing.JTextField txtPleca;
     private javax.swing.JTextField txtUnidad;
     // End of variables declaration//GEN-END:variables
 }
