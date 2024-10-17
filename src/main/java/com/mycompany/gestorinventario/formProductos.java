@@ -55,9 +55,11 @@ public class formProductos extends javax.swing.JFrame {
         btnModificar = new javax.swing.JButton();
         btnEliminar = new javax.swing.JButton();
         txtPleca = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
+        btnSalirProd = new javax.swing.JButton();
         btnBuscar = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        txtProductos = new javax.swing.JTextArea();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("formProductos");
@@ -108,11 +110,11 @@ public class formProductos extends javax.swing.JFrame {
         txtPleca.setEnabled(false);
         txtPleca.setFocusable(false);
 
-        jButton1.setBackground(new java.awt.Color(0, 153, 153));
-        jButton1.setText("SALIR");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btnSalirProd.setBackground(new java.awt.Color(0, 153, 153));
+        btnSalirProd.setText("SALIR");
+        btnSalirProd.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btnSalirProdActionPerformed(evt);
             }
         });
 
@@ -132,6 +134,10 @@ public class formProductos extends javax.swing.JFrame {
             }
         });
 
+        txtProductos.setColumns(20);
+        txtProductos.setRows(5);
+        jScrollPane1.setViewportView(txtProductos);
+
         javax.swing.GroupLayout pnlProductosLayout = new javax.swing.GroupLayout(pnlProductos);
         pnlProductos.setLayout(pnlProductosLayout);
         pnlProductosLayout.setHorizontalGroup(
@@ -144,14 +150,15 @@ public class formProductos extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnSalirProd, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(pnlProductosLayout.createSequentialGroup()
-                .addGroup(pnlProductosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(pnlProductosLayout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlProductosLayout.createSequentialGroup()
+                .addGroup(pnlProductosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, pnlProductosLayout.createSequentialGroup()
                         .addGap(69, 69, 69)
-                        .addComponent(lblProductos, javax.swing.GroupLayout.PREFERRED_SIZE, 252, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(pnlProductosLayout.createSequentialGroup()
+                        .addComponent(lblProductos, javax.swing.GroupLayout.PREFERRED_SIZE, 252, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, pnlProductosLayout.createSequentialGroup()
                         .addGap(11, 11, 11)
                         .addGroup(pnlProductosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(pnlProductosLayout.createSequentialGroup()
@@ -172,6 +179,10 @@ public class formProductos extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(txtDescripcion, javax.swing.GroupLayout.DEFAULT_SIZE, 155, Short.MAX_VALUE)))))
                 .addGap(21, 21, 21))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlProductosLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane1)
+                .addContainerGap())
         );
         pnlProductosLayout.setVerticalGroup(
             pnlProductosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -195,9 +206,11 @@ public class formProductos extends javax.swing.JFrame {
                     .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtDescripcion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblDescripcion))
-                .addGap(238, 238, 238)
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addGroup(pnlProductosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnSalirProd, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnEliminar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(pnlProductosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(btnModificar, javax.swing.GroupLayout.DEFAULT_SIZE, 48, Short.MAX_VALUE)
@@ -221,10 +234,10 @@ public class formProductos extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void btnSalirProdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirProdActionPerformed
         // TODO add your handling code here:
         dispose();  
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_btnSalirProdActionPerformed
 
     private void pnlProductosAncestorRemoved(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_pnlProductosAncestorRemoved
         // TODO add your handling code here:
@@ -232,7 +245,50 @@ public class formProductos extends javax.swing.JFrame {
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
         // TODO add your handling code here:
+        String busquedaCodigo = txtId.getText().trim();
+        File f = new File("Productos.txt");
+     try {
+         FileReader fr = new FileReader(f);
+         BufferedReader br = new BufferedReader(fr);
+         txtProductos.setText("");
+         
+         String linea="";
+         boolean encontrado = false;
+        
+
+        
+         if (busquedaCodigo.isEmpty()) {
+         while (linea != null){
+                 txtProductos.append(linea+"\n"); 
+                 linea = br.readLine();
+             
+         }
+       } else {
+        int i= 0;
+        while((linea = br.readLine()) !=null) {
+            String[] productos = linea.split("\\|");
+            for (String producto : productos) {
+            if(producto.trim().equals(busquedaCodigo)) {
+                txtProductos.append(linea + "\n");
+                encontrado = true;
+             }     
+           
+         }
+       }
+     }
+         if(!encontrado && !busquedaCodigo.isEmpty()){
+             txtProductos.append("No se encontraron resultados para: " + busquedaCodigo);
+         }
+         br.close();
+     } catch (FileNotFoundException ex) {
+         Logger.getLogger(formProductos.class.getName()).log(Level.SEVERE, null, ex);
+     } catch (IOException ex) {
+         Logger.getLogger(formProductos.class.getName()).log(Level.SEVERE, null, ex);
+     }
+       
     }//GEN-LAST:event_btnBuscarActionPerformed
+    
+
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
@@ -283,10 +339,11 @@ public class formProductos extends javax.swing.JFrame {
     private javax.swing.JButton btnBuscar;
     private javax.swing.JButton btnEliminar;
     private javax.swing.JButton btnModificar;
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton btnSalirProd;
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPopupMenu jPopupMenu1;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblDescripcion;
     private javax.swing.JLabel lblID;
     private javax.swing.JLabel lblProductos;
@@ -295,5 +352,6 @@ public class formProductos extends javax.swing.JFrame {
     private javax.swing.JTextField txtId;
     private javax.swing.JTextField txtNombre;
     private javax.swing.JTextField txtPleca;
+    private javax.swing.JTextArea txtProductos;
     // End of variables declaration//GEN-END:variables
 }
