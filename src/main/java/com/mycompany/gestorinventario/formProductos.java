@@ -4,6 +4,7 @@
  */
 package com.mycompany.gestorinventario;
 
+import com.mycompany.gestorinventario.formCategoria.Producto;
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -92,6 +93,11 @@ public class formProductos extends javax.swing.JFrame {
 
         btnModificar.setBackground(new java.awt.Color(0, 153, 153));
         btnModificar.setText("EDITAR");
+        btnModificar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnModificarActionPerformed(evt);
+            }
+        });
 
         btnEliminar.setBackground(new java.awt.Color(0, 153, 153));
         btnEliminar.setText("ELIMINAR");
@@ -134,7 +140,14 @@ public class formProductos extends javax.swing.JFrame {
             }
         });
 
+        jScrollPane1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jScrollPane1MouseClicked(evt);
+            }
+        });
+
         txtProductos.setColumns(20);
+        txtProductos.setLineWrap(true);
         txtProductos.setRows(5);
         jScrollPane1.setViewportView(txtProductos);
 
@@ -300,6 +313,46 @@ public class formProductos extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_btnEliminarActionPerformed
 
+    private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
+        // TODO add your handling code here:
+try {   
+       String selectedText = txtProductos.getSelectedText(); // Obtener texto seleccionado
+    
+    if (selectedText != null) {
+        System.out.println("Texto seleccionado: " + selectedText);
+        String[] partes = selectedText.split("\\|"); // Suponiendo que los productos se separan por "|"
+        String sku = partes[0].trim(); // Suponiendo que SKU está al principio
+        
+        Producto productoModificado = buscarProducto(sku);
+
+        if (productoModificado != null) {
+            formCategoria form = new formCategoria();
+ // Hacer visible el formulario
+           
+            // Cargar datos del producto en el formulario
+            form.txtIdTipos.setText(productoModificado.sku);
+            form.txtNombreTipo.setText(productoModificado.nombre);
+            form.txtDescripcionTipo.setText(productoModificado.descripcion);
+            form.txtUniMedida.setText(productoModificado.unidad);
+            form.cmbBoxProv.setSelectedItem(productoModificado.proveedor);
+
+            form.setVisible(true);
+        } else {
+            JOptionPane.showMessageDialog(null, "Producto no encontrado");
+        }
+    } else {
+        JOptionPane.showMessageDialog(null, "Por favor, selecciona un producto.");
+    } 
+}catch (Exception e) {
+        e.printStackTrace(); // Muestra la traza de error en la consola
+        JOptionPane.showMessageDialog(null, "Error al abrir el formulario: " + e.getMessage());
+            }
+    }//GEN-LAST:event_btnModificarActionPerformed
+
+    private void jScrollPane1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jScrollPane1MouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jScrollPane1MouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -352,6 +405,13 @@ public class formProductos extends javax.swing.JFrame {
     private javax.swing.JTextField txtId;
     private javax.swing.JTextField txtNombre;
     private javax.swing.JTextField txtPleca;
-    private javax.swing.JTextArea txtProductos;
+    public javax.swing.JTextArea txtProductos;
     // End of variables declaration//GEN-END:variables
+
+    private Producto buscarProducto(String sku) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+
+
 }

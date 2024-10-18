@@ -2,6 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
+
 package com.mycompany.gestorinventario;
 
 import java.awt.Component;
@@ -13,10 +14,13 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JComboBox;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.JTextField;
 
 /**
  *
@@ -29,7 +33,7 @@ public class formCategoria extends javax.swing.JFrame {
      */
     public formCategoria() {
         initComponents();
-    }
+}
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -58,6 +62,7 @@ public class formCategoria extends javax.swing.JFrame {
         lblFabricante = new javax.swing.JLabel();
         cmbBoxFabri = new javax.swing.JComboBox<>();
         btnAddProv = new javax.swing.JButton();
+        btnAddFab = new javax.swing.JButton();
         jTabbedPane2 = new javax.swing.JTabbedPane();
         lblCategoria = new javax.swing.JLabel();
         lblGrupo = new javax.swing.JLabel();
@@ -115,7 +120,7 @@ public class formCategoria extends javax.swing.JFrame {
 
         lblFabricante.setText("FABRICANTE");
 
-        cmbBoxFabri.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cmbBoxFabri.setEditable(true);
         cmbBoxFabri.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cmbBoxFabriActionPerformed(evt);
@@ -126,6 +131,13 @@ public class formCategoria extends javax.swing.JFrame {
         btnAddProv.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnAddProvActionPerformed(evt);
+            }
+        });
+
+        btnAddFab.setText("+");
+        btnAddFab.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAddFabActionPerformed(evt);
             }
         });
 
@@ -142,6 +154,7 @@ public class formCategoria extends javax.swing.JFrame {
         jDesktopPane1.setLayer(lblFabricante, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jDesktopPane1.setLayer(cmbBoxFabri, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jDesktopPane1.setLayer(btnAddProv, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jDesktopPane1.setLayer(btnAddFab, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         javax.swing.GroupLayout jDesktopPane1Layout = new javax.swing.GroupLayout(jDesktopPane1);
         jDesktopPane1.setLayout(jDesktopPane1Layout);
@@ -182,8 +195,11 @@ public class formCategoria extends javax.swing.JFrame {
                     .addGroup(jDesktopPane1Layout.createSequentialGroup()
                         .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(lblFabricante, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(cmbBoxFabri, javax.swing.GroupLayout.PREFERRED_SIZE, 265, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                            .addGroup(jDesktopPane1Layout.createSequentialGroup()
+                                .addComponent(cmbBoxFabri, javax.swing.GroupLayout.PREFERRED_SIZE, 265, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnAddFab, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addContainerGap(285, Short.MAX_VALUE))))
         );
         jDesktopPane1Layout.setVerticalGroup(
             jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -200,7 +216,9 @@ public class formCategoria extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(lblFabricante)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(cmbBoxFabri, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(cmbBoxFabri, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnAddFab))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
@@ -211,7 +229,7 @@ public class formCategoria extends javax.swing.JFrame {
                     .addComponent(txtCosto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtVenta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtCantMin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(13, Short.MAX_VALUE))
+                .addContainerGap(12, Short.MAX_VALUE))
         );
 
         txtUniMedida.getAccessibleContext().setAccessibleName("panelTipo");
@@ -234,7 +252,7 @@ public class formCategoria extends javax.swing.JFrame {
 
         jLabel2.setText("NOMBRE");
 
-        cmbBoxCategoria.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cmbBoxCategoria.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "PRODUCTO", "SERVICIO" }));
         cmbBoxCategoria.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cmbBoxCategoriaActionPerformed(evt);
@@ -259,7 +277,7 @@ public class formCategoria extends javax.swing.JFrame {
             }
         });
 
-        btnAddGrupo.setText("jButton3");
+        btnAddGrupo.setText("+");
         btnAddGrupo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnAddGrupoActionPerformed(evt);
@@ -370,24 +388,25 @@ public class formCategoria extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+/*
     private void jPanel1AncestorRemoved(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_jPanel1AncestorRemoved
         // TODO add your handling code here:
     }//GEN-LAST:event_jPanel1AncestorRemoved
-
+*/
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
         dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
-
+/*
     private void cmbBoxFabriActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbBoxFabriActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_cmbBoxFabriActionPerformed
-
+*/
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
                    File f = new File("Productos.txt");
-                   File g = new File("comboData.txt");
+                   
+                   File j = new File("comboFabri.txt");
                    
         String sku = "";
     String nombre = "";
@@ -429,7 +448,7 @@ public class formCategoria extends javax.swing.JFrame {
     }//GEN-LAST:event_cmbBoxCategoriaActionPerformed
 
     private void btnAddProvActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddProvActionPerformed
-
+File f = new File("comboData.txt");
         // TODO add your handling code here:
         loadComboBoxData(cmbBoxProv); // carga los datos en el comboBox
         //se agrega ActionListener al botón para agregar un nuevo proveedor
@@ -491,7 +510,7 @@ public class formCategoria extends javax.swing.JFrame {
      */
  private static final String FILE_NAME = "comboData.txt"; // Nombre del archivo    
     public static void main(String args[]) {
-        File h = new File("comboGroup.txt");
+        
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
@@ -512,13 +531,42 @@ public class formCategoria extends javax.swing.JFrame {
         //</editor-fold>
 
     }//GEN-LAST:event_btnAddProvActionPerformed
+public class Producto {
+    String sku;
+    String nombre;
+    String descripcion;
+    String unidad;
+    String proveedor;
+
+    // Constructor
+    public Producto(String sku, String nombre, String descripcion, String unidad, String proveedor) {
+        this.sku = sku;
+        this.nombre = nombre;
+        this.descripcion = descripcion;
+        this.unidad = unidad;
+        this.proveedor = proveedor;
+    }
+
+    // Getters y Setters (opcional)
+    // ...
+}
+private final ArrayList<Producto> productos = new ArrayList<>();
+private Producto buscarProducto(String sku) {
+    for (Producto p : productos) { // Itera sobre cada producto en la lista
+        if (p.sku.equals(sku)) { // Compara el SKU del producto actual con el SKU buscado
+            return p; // Retorna el producto si se encuentra
+        }
+    }
+    return null; // Retorna null si no se encuentra el producto
+}
 
 private static final String FILE_NAME2="comboGroup.txt";
+   
     private void btnAddGrupoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddGrupoActionPerformed
         // TODO add your handling code here: 
-     
+    File f = new File("comboGroup.txt");
     // Carga los datos en el comboBox de grupos
-    loadComboBoxData(cmbBoxGrupo); 
+    loadComboBoxGroup(cmbBoxGrupo); 
 
     // Agrega ActionListener al botón para agregar un nuevo grupo
     btnAddGrupo.addActionListener(new ActionListener() {
@@ -530,7 +578,7 @@ private static final String FILE_NAME2="comboGroup.txt";
             // Verificar que no esté vacío y que no esté ya en la lista
                 if (newItem != null && !newItem.trim().isEmpty() && !containsItem(cmbBoxGrupo, newItem)) {
                     cmbBoxGrupo.addItem(newItem); // Agregar el nuevo elemento
-                    saveComboBoxData(cmbBoxGrupo); // Guardar en el archivo
+                    saveComboBoxGroup(cmbBoxGrupo); // Guardar en el archivo
                     cmbBoxGrupo.setSelectedItem(""); // Limpiar el JComboBox
                 } else {
                     JOptionPane.showMessageDialog(frame, "El elemento ya existe o está vacío.");
@@ -550,7 +598,7 @@ private boolean containsItem(JComboBox<String> comboBox, String item) {
 }
 
 // Cargar datos desde el archivo
-private static void onAddGrupoClick(JComboBox<String> cmbBox) {
+private static void loadComboBoxGroup(JComboBox<String> cmbBox) {
     cmbBox.removeAllItems();
     try (BufferedReader reader = new BufferedReader(new FileReader(FILE_NAME2))) {
         String line2;
@@ -563,7 +611,7 @@ private static void onAddGrupoClick(JComboBox<String> cmbBox) {
 }
 
 // Guardar datos en el archivo
-private static void GoalGrupoClick(JComboBox<String> cmbBox) {
+private static void saveComboBoxGroup(JComboBox<String> cmbBox) {
     try (BufferedWriter writer = new BufferedWriter(new FileWriter(FILE_NAME2))) {
         for (int u = 0; u < cmbBox.getItemCount(); u++) {
             writer.write(cmbBox.getItemAt(u));
@@ -574,17 +622,89 @@ private static void GoalGrupoClick(JComboBox<String> cmbBox) {
     }
 
     }//GEN-LAST:event_btnAddGrupoActionPerformed
+private void jPanel1AncestorRemoved(javax.swing.event.AncestorEvent evt) {
+    // Lógica a ejecutar cuando el panel es removido
+}
+
+private void cmbBoxFabriActionPerformed(java.awt.event.ActionEvent evt) {
+    // Lógica a ejecutar cuando se selecciona un elemento en cmbBoxFabri
+}
+private static final String FILE_NAME3="comboFabri.txt";
+
+    private void btnAddFabActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddFabActionPerformed
+     
+        // TODO add your handling code here: 
+    
+    // Carga los datos en el comboBox de grupos
+    loadComboBoxFabri(cmbBoxFabri); 
+
+    // Agrega ActionListener al botón para agregar un nuevo grupo
+    btnAddFab.addActionListener(new ActionListener() {
+        private Component frame;
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            //Obtener texto del comboBox
+            String newItem = (String) cmbBoxFabri.getSelectedItem();
+            // Verificar que no esté vacío y que no esté ya en la lista
+                if (newItem != null && !newItem.trim().isEmpty() && !containsItem(cmbBoxFabri, newItem)) {
+                    cmbBoxFabri.addItem(newItem); // Agregar el nuevo elemento
+                    saveComboBoxFabri(cmbBoxFabri); // Guardar en el archivo
+                    cmbBoxFabri.setSelectedItem(""); // Limpiar el JComboBox
+                } else {
+                    JOptionPane.showMessageDialog(frame, "El elemento ya existe o está vacío.");
+                }
+            }
+    });
+}
+
+    // Método para verificar si el item ya existe en el JComboBox
+    private boolean doesComboBoxcontainsItem(JComboBox<String> comboBox, String item) {
+    for (int t = 0; t < comboBox.getItemCount(); t++) {
+        if (comboBox.getItemAt(t).equals(item)) {
+            return true;
+        }
+    }
+    return false;
+}
+
+// Cargar datos desde el archivo
+private static void loadComboBoxFabri(JComboBox<String> cmbBox) {
+    cmbBox.removeAllItems();
+    try (BufferedReader reader = new BufferedReader(new FileReader(FILE_NAME3))) {
+        String line3;
+        while ((line3 = reader.readLine()) != null) {
+            cmbBox.addItem(line3);
+        }
+    } catch (IOException e) {
+        // Manejo de excepción
+    }
+}
+
+// Guardar datos en el archivo
+private static void saveComboBoxFabri(JComboBox<String> cmbBox) {
+    try (BufferedWriter writer = new BufferedWriter(new FileWriter(FILE_NAME3))) {
+        for (int t = 0; t< cmbBox.getItemCount(); t++) {
+            writer.write(cmbBox.getItemAt(t));
+            writer.newLine(); // Nueva línea para cada elemento
+        }
+    } catch (IOException e) {
+        // Manejo de excepción
+    }
+
+    
+
+    }//GEN-LAST:event_btnAddFabActionPerformed
 
 
-   
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAddFab;
     private javax.swing.JButton btnAddGrupo;
     private javax.swing.JButton btnAddProv;
-    private javax.swing.JComboBox<String> cmbBoxCategoria;
+    public javax.swing.JComboBox<String> cmbBoxCategoria;
     public javax.swing.JComboBox<String> cmbBoxFabri;
-    private javax.swing.JComboBox<String> cmbBoxGrupo;
-    private javax.swing.JComboBox<String> cmbBoxProv;
+    public javax.swing.JComboBox<String> cmbBoxGrupo;
+    public javax.swing.JComboBox<String> cmbBoxProv;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JDesktopPane jDesktopPane1;
@@ -603,12 +723,12 @@ private static void GoalGrupoClick(JComboBox<String> cmbBox) {
     private javax.swing.JLabel lblFabricante;
     private javax.swing.JLabel lblGrupo;
     private javax.swing.JLabel lblIdCategoria;
-    private javax.swing.JTextField txtCantMin;
-    private javax.swing.JTextField txtCosto;
-    private javax.swing.JTextField txtDescripcionTipo;
-    private javax.swing.JTextField txtIdTipos;
-    private javax.swing.JTextField txtNombreTipo;
-    private javax.swing.JTextField txtUniMedida;
-    private javax.swing.JTextField txtVenta;
+    public javax.swing.JTextField txtCantMin;
+    public javax.swing.JTextField txtCosto;
+    public javax.swing.JTextField txtDescripcionTipo;
+    public javax.swing.JTextField txtIdTipos;
+    public javax.swing.JTextField txtNombreTipo;
+    public javax.swing.JTextField txtUniMedida;
+    public javax.swing.JTextField txtVenta;
     // End of variables declaration//GEN-END:variables
 }
