@@ -57,6 +57,11 @@ public class formInicio extends javax.swing.JFrame {
         });
 
         BtnMovimientos.setText("Movimientos");
+        BtnMovimientos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnMovimientosActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout panelLhLayout = new javax.swing.GroupLayout(panelLh);
         panelLh.setLayout(panelLhLayout);
@@ -148,6 +153,12 @@ public class formInicio extends javax.swing.JFrame {
         formProductos abrir = new formProductos();
         abrir.setVisible(true);
     }//GEN-LAST:event_btnProductosActionPerformed
+
+    private void BtnMovimientosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnMovimientosActionPerformed
+        // TODO add your handling code here:
+        formMovimientos abrir = new formMovimientos();
+        abrir.setVisible(true);
+    }//GEN-LAST:event_BtnMovimientosActionPerformed
 
     /**
      * @param args the command line arguments
