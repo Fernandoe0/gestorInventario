@@ -35,7 +35,7 @@ private void llenarComboBoxMovimientos() {
 
         // Solo verificar si se está tratando de descargar
         if (movimiento.equals("DESCARGAR")) {
-            int cantidadExistente = movimientosManager.getCantidadPorSku(sku);
+            int cantidadExistente = MovimientosManager.getCantidadPorSku(sku);
             if (cantidadExistente < cantidad) {
                 JOptionPane.showMessageDialog(this, "No hay suficiente cantidad para descargar.");
                 return;
@@ -43,7 +43,7 @@ private void llenarComboBoxMovimientos() {
         }
 
         // Registrar el movimiento
-        movimientosManager.registrarMovimiento(sku, cantidad, movimiento);
+        MovimientosManager.registrarMovimiento(sku, cantidad, movimiento);
         txtAreaMov.append("SKU: " + sku + ", Cantidad: " + qtyStr + ", Movimiento: " + movimiento + "\n");
 
         // Limpiar campos
@@ -53,14 +53,7 @@ private void llenarComboBoxMovimientos() {
         JOptionPane.showMessageDialog(this, "Por favor, ingresa una cantidad válida.");
     }
     }
-private void guardarMovimientoEnArchivo(String sku, String qty, String movimiento) {
-        try (BufferedWriter bw = new BufferedWriter(new FileWriter("Movimientos.txt", true))) {
-            bw.write("SKU: " + sku + ", Cantidad: " + qty + ", Movimiento: " + movimiento);
-            bw.newLine();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -226,8 +219,12 @@ private void guardarMovimientoEnArchivo(String sku, String qty, String movimient
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void guardarMovimientoEnArchivo(String sku, int qty, String movimiento) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter("Movimientos.txt", true))) {
+        bw.write(sku + "|" + qty);
+        bw.newLine();
+    } catch (IOException e) {
+        e.printStackTrace();
+    }    }
 public class MovimientosManager {
     private ArrayList<String[]> movimientos;
 
@@ -238,14 +235,19 @@ public class MovimientosManager {
 
      private void cargarMovimientos() {
         try (BufferedReader br = new BufferedReader(new FileReader("Movimientos.txt"))) {
-            String linea;
-            while ((linea = br.readLine()) != null) {
-                String[] datos = linea.split("\\|");
+        String linea;
+        while ((linea = br.readLine()) != null) {
+            String[] datos = linea.split("\\|");
+            // Verificar que el arreglo tiene los elementos esperados
+            if (datos.length >= 2) { // Al menos SKU y cantidad
                 movimientos.add(datos);
+            } else {
+                System.out.println("Formato incorrecto en la línea: " + linea);
             }
-        } catch (IOException e) {
-            e.printStackTrace();
         }
+    } catch (IOException e) {
+        e.printStackTrace();
+    }
     }
 
     public int getCantidadPorSku(String sku) {
@@ -261,17 +263,18 @@ public class MovimientosManager {
         // Añadir lógica para manejar CARGAR y DESCARGAR
         // Por ejemplo, sumar o restar la cantidad
         if (tipo.equals("CARGAR")) {
-            movimientos.add(new String[]{sku, String.valueOf(cantidad)});
-        } else if (tipo.equals("DESCARGAR")) {
-            int cantidadActual = getCantidadPorSku(sku);
-            if (cantidadActual >= cantidad) {
-                movimientos.add(new String[]{sku, String.valueOf(-cantidad)});
-            } else {
-                System.out.println("No hay suficiente cantidad para descargar.");
-            }
+        movimientos.add(new String[]{sku, String.valueOf(cantidad)});
+        guardarMovimientoEnArchivo(sku, cantidad, tipo);
+    } else if (tipo.equals("DESCARGAR")) {
+        int cantidadActual = getCantidadPorSku(sku);
+        if (cantidadActual >= cantidad) {
+            movimientos.add(new String[]{sku, String.valueOf(-cantidad)});
+            guardarMovimientoEnArchivo(sku, -cantidad, tipo);
+        } else {
+            System.out.println("No hay suficiente cantidad para descargar.");
         }
-        //Guardar el movimiento en el archivo
-        guardarMovimientos();
+    }
+    guardarMovimientos(); // Asegúrate de que guarda correctamente el movimiento
      }
     private void guardarMovimientos() {
             try (BufferedWriter bw = new BufferedWriter(new FileWriter("Movimientos.txt", true))) {
