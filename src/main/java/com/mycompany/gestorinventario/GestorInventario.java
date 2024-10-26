@@ -24,10 +24,8 @@ import java.util.logging.Logger;
 public class GestorInventario {
 
     public static void main(String[] args) {
-     File f = new File("productos.txt");
-     File t = new File("tipoProductos.txt");
-     File c = new File("Clientes.txt");
-        
+    formInicio abrir = new formInicio();
+        abrir.setVisible(true);
        
     }
 }
